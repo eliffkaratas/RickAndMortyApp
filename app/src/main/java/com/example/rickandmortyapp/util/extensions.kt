@@ -22,10 +22,3 @@ fun View.hide(): View {
     }
     return this
 }
-
-fun View.setFullHeight(view: View): View {
-    val layoutParams = view.layoutParams
-    layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
-    view.layoutParams = layoutParams
-    return this
-}

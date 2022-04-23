@@ -1,5 +1,6 @@
 package com.example.rickandmortyapp.base
 
+import android.app.Dialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -8,10 +9,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
-import com.example.rickandmortyapp.util.setFullHeight
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 abstract class BaseFullBottomSheetFragment<VM : ViewModel?, DB : ViewDataBinding> :
@@ -20,6 +23,22 @@ abstract class BaseFullBottomSheetFragment<VM : ViewModel?, DB : ViewDataBinding
 
     abstract var viewModel: VM?
     protected lateinit var dataBinding: DB
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = BottomSheetDialog(requireContext(), theme)
+        dialog.setOnShowListener {
+
+            val bottomSheetDialog = it as BottomSheetDialog
+            val parentLayout =
+                bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            parentLayout?.let { it ->
+                val behaviour = BottomSheetBehavior.from(it)
+                setupFullHeight(it)
+                behaviour.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+        }
+        return dialog
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +51,6 @@ abstract class BaseFullBottomSheetFragment<VM : ViewModel?, DB : ViewDataBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.setFullHeight(view)
         observeLiveData()
     }
 
@@ -56,5 +74,11 @@ abstract class BaseFullBottomSheetFragment<VM : ViewModel?, DB : ViewDataBinding
             }
         }
         return false
+    }
+
+    private fun setupFullHeight(bottomSheet: View) {
+        val layoutParams = bottomSheet.layoutParams
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
+        bottomSheet.layoutParams = layoutParams
     }
 }
