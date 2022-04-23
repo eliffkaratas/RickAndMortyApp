@@ -4,15 +4,9 @@ import android.app.Application
 import android.os.Looper
 import android.widget.Toast
 import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
 
 @HiltAndroidApp
 class RickAndMortyApp : Application() {
-
-    val appScope by lazy {
-        CoroutineScope(SupervisorJob())
-    }
 
     override fun onCreate() {
         super.onCreate()

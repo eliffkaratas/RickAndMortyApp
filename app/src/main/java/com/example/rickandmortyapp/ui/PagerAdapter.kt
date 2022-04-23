@@ -10,7 +10,8 @@ import com.example.rickandmortyapp.model.CharacterResponse
 
 class PagerAdapter(
     private val viewPager: ViewPager2,
-    private val characterList: MutableList<CharacterResponse.CharacterResult>
+    private val characterList: MutableList<CharacterResponse.CharacterResult>,
+    private val characterClicked: (character: CharacterResponse.CharacterResult) -> Unit
 ) : RecyclerView.Adapter<CharacterPagerViewHolder>() {
 
     override fun getItemCount(): Int = characterList.size
@@ -28,7 +29,11 @@ class PagerAdapter(
     }
 
     override fun onBindViewHolder(holder: CharacterPagerViewHolder, position: Int) {
-        holder.bind(characterList[position])
+        val character = characterList[position]
+        holder.bind(character)
+        holder.itemBinding.cardViewCharacter.setOnClickListener {
+            characterClicked.invoke(character)
+        }
         if (position == characterList.size - 2) {
             viewPager.post(run)
         }
@@ -41,7 +46,7 @@ class PagerAdapter(
 }
 
 class CharacterPagerViewHolder(
-    private val itemBinding: PagerItemBinding,
+    val itemBinding: PagerItemBinding,
 ) : RecyclerView.ViewHolder(itemBinding.root) {
     fun bind(character: CharacterResponse.CharacterResult) {
         itemBinding.character = character

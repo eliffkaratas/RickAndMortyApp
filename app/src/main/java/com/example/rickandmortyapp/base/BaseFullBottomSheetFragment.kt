@@ -10,10 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import com.example.rickandmortyapp.util.setFullHeight
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-abstract class BaseFragment<VM : ViewModel?, DB : ViewDataBinding> : Fragment(), FragmentActions {
+abstract class BaseFullBottomSheetFragment<VM : ViewModel?, DB : ViewDataBinding> :
+    BottomSheetDialogFragment(),
+    FragmentActions {
 
     abstract var viewModel: VM?
     protected lateinit var dataBinding: DB
@@ -29,6 +32,7 @@ abstract class BaseFragment<VM : ViewModel?, DB : ViewDataBinding> : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.setFullHeight(view)
         observeLiveData()
     }
 

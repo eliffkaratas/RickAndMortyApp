@@ -3,11 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_character_list">
+    app:startDestination="@+id/nav_character">
 
     <fragment
-        android:id="@+id/nav_character_list"
+        android:id="@+id/nav_character"
         android:name="com.example.rickandmortyapp.ui.CharacterListFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_character_list" />
+        android:label="CharacterListFragment"
+        tools:layout="@layout/fragment_character_list">
+        <action
+            android:id="@+id/action_nav_character_list_to_characterDetailFragment"
+            app:destination="@id/characterDetailFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/characterDetailFragment"
+        android:name="com.example.rickandmortyapp.ui.CharacterDetailFragment"
+        android:label="CharacterDetailFragment"
+        tools:layout="@layout/fragment_character_detail">
+        <argument
+            android:name="characterId"
+            app:argType="string" />
+    </dialog>
 </navigation>

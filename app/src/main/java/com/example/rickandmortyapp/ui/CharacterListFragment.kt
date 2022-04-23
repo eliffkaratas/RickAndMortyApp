@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -50,7 +51,12 @@ class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacter
                 }
                 Status.SUCCESS -> {
                     it.data?.let { it1 ->
-                        pagerAdapter = PagerAdapter(dataBinding.viewPagerCharacters, it1.results)
+                        pagerAdapter = PagerAdapter(
+                            dataBinding.viewPagerCharacters,
+                            it1.results
+                        ) {
+                            characterClicked(it.id.toString())
+                        }
                         dataBinding.viewPagerCharacters.adapter =
                             pagerAdapter
                         dataBinding.viewPagerCharacters.clipToPadding = false
@@ -86,4 +92,11 @@ class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacter
                 dataBinding.viewPagerCharacters.currentItem + 1
         }
     }
+
+    private fun characterClicked(characterId: String) =
+        findNavController().navigate(
+            CharacterListFragmentDirections.actionNavCharacterListToCharacterDetailFragment(
+                characterId
+            )
+        )
 }

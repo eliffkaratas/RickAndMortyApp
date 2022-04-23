@@ -6,7 +6,6 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
-
 open class AppExecutor(
     private val diskIO: Executor,
     private val networkIO: Executor,

@@ -12,7 +12,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CharacterViewModel@Inject constructor(private val repository: CharacterRepository) : ViewModel() {
+class CharacterViewModel @Inject constructor(private val repository: CharacterRepository) :
+    ViewModel() {
 
     private var listCharacters = MutableLiveData<Event<Unit>>()
 
