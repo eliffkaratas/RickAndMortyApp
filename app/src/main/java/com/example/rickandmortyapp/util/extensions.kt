@@ -1,7 +1,6 @@
 package com.example.rickandmortyapp.util
 
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 
