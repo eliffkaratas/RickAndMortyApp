@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.rickandmortyapp.databinding.PagerItemBinding
 import com.example.rickandmortyapp.model.CharacterResponse
 
@@ -30,12 +31,12 @@ class PagerAdapter(
 
     override fun onBindViewHolder(holder: CharacterPagerViewHolder, position: Int) {
         val character = characterList[position]
+        if (position == characterList.size - 2) {
+            viewPager.post(run)
+        }
         holder.bind(character)
         holder.itemBinding.cardViewCharacter.setOnClickListener {
             characterClicked.invoke(character)
-        }
-        if (position == characterList.size - 2) {
-            viewPager.post(run)
         }
     }
 
@@ -50,7 +51,9 @@ class CharacterPagerViewHolder(
 ) : RecyclerView.ViewHolder(itemBinding.root) {
     fun bind(character: CharacterResponse.CharacterResult) {
         itemBinding.character = character
-        Glide.with(itemView.context).load(character.image).into(itemBinding.imageViewPager)
+        Glide.with(itemView.context).load(character.image).apply(
+            RequestOptions.circleCropTransform()
+        ).into(itemBinding.imageViewPager)
         itemBinding.executePendingBindings()
     }
 }

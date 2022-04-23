@@ -14,6 +14,17 @@ class CharacterDetailFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dataBinding.apply {
+            toolbar.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.close -> {
+                        dismiss()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }
         dataBinding.textView.text = args.characterId
     }
 

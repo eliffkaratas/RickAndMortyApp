@@ -34,7 +34,6 @@ class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacter
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProvider(this)[CharacterViewModel::class.java]
-
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -51,21 +50,24 @@ class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacter
                 }
                 Status.SUCCESS -> {
                     it.data?.let { it1 ->
+
                         pagerAdapter = PagerAdapter(
                             dataBinding.viewPagerCharacters,
                             it1.results
                         ) {
                             characterClicked(it.id.toString())
                         }
-                        dataBinding.viewPagerCharacters.adapter =
-                            pagerAdapter
-                        dataBinding.viewPagerCharacters.clipToPadding = false
-                        dataBinding.viewPagerCharacters.clipChildren = false
-                        dataBinding.viewPagerCharacters.offscreenPageLimit = 3
-                        dataBinding.viewPagerCharacters.getChildAt(0).overScrollMode =
-                            RecyclerView.OVER_SCROLL_NEVER
+                        dataBinding.apply {
+                            textViewInfo.text = getString(R.string.info)
+                            viewPagerCharacters.adapter =
+                                pagerAdapter
+                            viewPagerCharacters.clipToPadding = false
+                            viewPagerCharacters.clipChildren = false
+                            viewPagerCharacters.offscreenPageLimit = 3
+                            viewPagerCharacters.getChildAt(0).overScrollMode =
+                                RecyclerView.OVER_SCROLL_NEVER
+                        }
                         comPosPage()
-
                     }
                     dataBinding.lottieLoading.hide()
                 }
