@@ -20,7 +20,24 @@
         android:label="CharacterDetailFragment"
         tools:layout="@layout/fragment_character_detail">
         <argument
-            android:name="characterId"
-            app:argType="string" />
+            android:name="characterImage"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="characterName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="characterStatus"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="characterLocationName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="characterLocationUrl"
+            app:argType="string"
+            app:nullable="true" />
     </dialog>
 </navigation>

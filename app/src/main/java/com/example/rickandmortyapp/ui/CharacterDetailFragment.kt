@@ -3,6 +3,7 @@ package com.example.rickandmortyapp.ui
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.rickandmortyapp.R
 import com.example.rickandmortyapp.base.BaseFullBottomSheetFragment
 import com.example.rickandmortyapp.databinding.FragmentCharacterDetailBinding
@@ -25,7 +26,14 @@ class CharacterDetailFragment :
                 }
             }
         }
-        dataBinding.textView.text = args.characterId
+        dataBinding.apply {
+            Glide.with(requireView().context).load(args.characterImage)
+                .into(imageViewCharacterDetail)
+            textViewName.text = args.characterName
+            textViewStatus.text = args.characterStatus
+            textViewLocationName.text = args.characterLocationName
+            textViewLocationUrl.text = args.characterLocationUrl
+        }
     }
 
     override fun getLayoutID(): Int = R.layout.fragment_character_detail

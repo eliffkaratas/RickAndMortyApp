@@ -15,5 +15,9 @@
 
     <string name="close">close</string>
     <string name="info">Tap on a character to see character details</string>
-    <string name="rick_and_morty_characters">Rick and Morty Characters</string>
+    <string name="rick_and_morty">Rick and Morty</string>
+    <string name="name">Name</string>
+    <string name="status">Status</string>
+    <string name="location_name">Location Name</string>
+    <string name="location_url">Location Url</string>
 </resources>

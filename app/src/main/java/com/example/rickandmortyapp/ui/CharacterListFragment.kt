@@ -49,13 +49,18 @@ class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacter
                     dataBinding.lottieLoading.show()
                 }
                 Status.SUCCESS -> {
-                    it.data?.let { it1 ->
-
+                    it.data?.let {
                         pagerAdapter = PagerAdapter(
                             dataBinding.viewPagerCharacters,
-                            it1.results
-                        ) {
-                            characterClicked(it.id.toString())
+                            it.results
+                        ) { character ->
+                            characterClicked(
+                                character.image!!,
+                                character.name!!,
+                                character.status!!,
+                                character.characterLocation?.name!!,
+                                character.characterLocation.url!!
+                            )
                         }
                         dataBinding.apply {
                             textViewInfo.text = getString(R.string.info)
@@ -95,10 +100,20 @@ class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacter
         }
     }
 
-    private fun characterClicked(characterId: String) =
+    private fun characterClicked(
+        characterImage: String,
+        characterName: String,
+        characterStatus: String,
+        characterLocationName: String,
+        characterLocationUrl: String
+    ) =
         findNavController().navigate(
             CharacterListFragmentDirections.actionNavCharacterListToCharacterDetailFragment(
-                characterId
+                characterImage,
+                characterName,
+                characterStatus,
+                characterLocationName,
+                characterLocationUrl
             )
         )
 }

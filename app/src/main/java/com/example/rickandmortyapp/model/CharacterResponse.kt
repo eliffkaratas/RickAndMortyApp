@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 data class CharacterResponse(
     @Json(name = "info") val info: CharacterInfo,
     @Json(name = "results") val results: MutableList<CharacterResult>
-) : Parcelable{
+) : Parcelable {
     @Parcelize
     @JsonClass(generateAdapter = true)
     data class CharacterInfo(
@@ -19,6 +19,7 @@ data class CharacterResponse(
         @Json(name = "pages") val pages: Int,
         @Json(name = "prev") val prev: Int?
     ) : Parcelable
+
     @Parcelize
     @JsonClass(generateAdapter = true)
     data class CharacterResult(
@@ -27,9 +28,9 @@ data class CharacterResponse(
         @Json(name = "gender") val gender: String?,
         @Json(name = "id") val id: Int?,
         @Json(name = "image") val image: String?,
-        @Json(name = "characterLocation") val characterLocation: CharacterLocation?,
+        @Json(name = "location") val characterLocation: CharacterLocation?,
         @Json(name = "name") val name: String?,
-        @Json(name = "characterOrigin") val characterOrigin: CharacterOrigin?,
+        @Json(name = "origin") val characterOrigin: CharacterOrigin?,
         @Json(name = "species") val species: String?,
         @Json(name = "status") val status: String?,
         @Json(name = "type") val type: String?,
@@ -41,11 +42,12 @@ data class CharacterResponse(
             @Json(name = "name") val name: String,
             @Json(name = "url") val url: String
         ) : Parcelable
+
         @Parcelize
         @JsonClass(generateAdapter = true)
         data class CharacterLocation(
-            @Json(name = "name") val name: String,
-            @Json(name = "url") val url: String
+            @Json(name = "name") val name: String?,
+            @Json(name = "url") val url: String?
         ) : Parcelable
     }
 }

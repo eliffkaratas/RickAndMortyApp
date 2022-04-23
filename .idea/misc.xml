@@ -7,7 +7,7 @@
         <entry key="app/src/main/res/drawable/rounded_dialog.xml" value="0.1975" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_main2.xml" value="0.2554347826086957" />
-        <entry key="app/src/main/res/layout/fragment_character_detail.xml" value="0.2554347826086957" />
+        <entry key="app/src/main/res/layout/fragment_character_detail.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_character_list.xml" value="0.25" />
         <entry key="app/src/main/res/layout/pager_item.xml" value="0.11" />
         <entry key="app/src/main/res/menu/toolbar_close.xml" value="0.278125" />
