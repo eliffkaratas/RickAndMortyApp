@@ -1,3 +1,5 @@
+## Rick and Morty App
+
 In this application, data geting from an API containing the character information in the Rick and Morty cartoon series.
 The application consists of two screens. These screens are Main screen and Detail Screen.
 
