@@ -6,10 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
@@ -58,6 +55,7 @@ abstract class BaseFullBottomSheetFragment<VM : ViewModel?, DB : ViewDataBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupBackPressListener()
         observeLiveData()
     }
 
@@ -91,5 +89,17 @@ abstract class BaseFullBottomSheetFragment<VM : ViewModel?, DB : ViewDataBinding
         val layoutParams = bottomSheet.layoutParams
         layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
         bottomSheet.layoutParams = layoutParams
+    }
+
+    private fun setupBackPressListener() {
+        this.view?.isFocusableInTouchMode = true
+        this.view?.requestFocus()
+        this.view?.setOnKeyListener { _, keyCode, _ ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                dismiss()
+                true
+            } else
+                false
+        }
     }
 }
