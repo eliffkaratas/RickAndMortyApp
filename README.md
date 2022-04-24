@@ -22,7 +22,7 @@ Detail screen contains these informations about characters:
 - Gender
 - Created
 
-![detail_screen](https://user-images.githubusercontent.com/74800052/164953417-267ae319-a605-4826-8f9a-944424c87dff.png width="200" height="400")
+<img src="https://user-images.githubusercontent.com/74800052/164953417-267ae319-a605-4826-8f9a-944424c87dff.png" width="200" height="400"/>
 
 API link : https://rickandmortyapi.com/
 
