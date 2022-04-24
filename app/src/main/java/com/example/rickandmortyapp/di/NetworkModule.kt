@@ -43,13 +43,11 @@ class NetworkModule {
                 .url(newUrl)
                 .method(request.method, request.body)
                 .build()
-
-            var response = chain.proceed(newRequest)
-
             chain.proceed(newRequest)
         }
 
-
+    @Singleton
+    @Provides
     fun provideOkHttpClient(
         interceptor: Interceptor,
         @Named("header") header: Interceptor
@@ -58,14 +56,12 @@ class NetworkModule {
             .connectTimeout(2L, TimeUnit.SECONDS)
             .readTimeout(2L, TimeUnit.SECONDS)
             .writeTimeout(2L, TimeUnit.SECONDS)
-            //.addInterceptor(header)
             .addInterceptor(interceptor)
 
             .apply {
                 val loggingInterceptor = HttpLoggingInterceptor()
                 loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
                 addInterceptor(loggingInterceptor)
-
             }
             .build()
 
@@ -73,14 +69,14 @@ class NetworkModule {
     @Singleton
     @Provides
     @Named(CHARACTER_SERVICE)
-    fun provideUserMobileInterceptor(): Interceptor {
+    fun provideCharacterInterceptor(): Interceptor {
         return Interceptor { chain ->
             synchronized(this) {
                 val request = chain.request()
                     .newBuilder()
                     .build()
 
-                var response = chain.proceed(request)
+                val response = chain.proceed(request)
                 response
             }
         }
@@ -98,7 +94,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideUserMobileService(
+    fun provideCharacterService(
         @Named(CHARACTER_SERVICE)
         okHttpClient: OkHttpClient,
         moshi: Moshi,

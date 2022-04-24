@@ -6,7 +6,7 @@
         <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/win8_purple</item>
+        <item name="colorSecondary">@color/win8_blue</item>
         <item name="colorSecondaryVariant">@color/win8_pink</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->

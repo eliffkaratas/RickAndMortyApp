@@ -30,6 +30,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,17 +63,19 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="end"
                         android:text="@string/name"
-                        android:textColor="@color/holo_purple"
+                        android:textColor="@color/win8_lime"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/text_view_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:paddingHorizontal="8dp"
                         android:textColor="@color/white"
                         android:textSize="24sp" />
@@ -84,17 +87,19 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="end"
                         android:text="@string/status"
-                        android:textColor="@color/holo_purple"
+                        android:textColor="@color/win8_lime"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/text_view_status"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:paddingHorizontal="8dp"
                         android:textColor="@color/white"
                         android:textSize="24sp" />
@@ -106,17 +111,19 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="end"
                         android:text="@string/location_name"
-                        android:textColor="@color/holo_purple"
+                        android:textColor="@color/win8_lime"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/text_view_location_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:paddingHorizontal="8dp"
                         android:textColor="@color/white"
                         android:textSize="24sp" />
@@ -128,17 +135,20 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="end"
                         android:text="@string/location_url"
-                        android:textColor="@color/holo_purple"
+                        android:textColor="@color/win8_lime"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/text_view_location_url"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
+                        android:autoLink="web"
                         android:paddingHorizontal="8dp"
                         android:textColor="@color/white"
                         android:textSize="24sp" />
@@ -150,17 +160,19 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="end"
                         android:text="@string/species"
-                        android:textColor="@color/holo_purple"
+                        android:textColor="@color/win8_lime"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/text_view_species"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:paddingHorizontal="8dp"
                         android:textColor="@color/white"
                         android:textSize="24sp" />
@@ -172,17 +184,19 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="end"
                         android:text="@string/gender"
-                        android:textColor="@color/holo_purple"
+                        android:textColor="@color/win8_lime"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/text_view_gender"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:paddingHorizontal="8dp"
                         android:textColor="@color/white"
                         android:textSize="24sp" />
@@ -194,17 +208,19 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="end"
                         android:text="@string/created"
-                        android:textColor="@color/holo_purple"
+                        android:textColor="@color/win8_lime"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/text_view_created"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:paddingHorizontal="8dp"
                         android:textColor="@color/white"
                         android:textSize="24sp" />

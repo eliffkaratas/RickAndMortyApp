@@ -19,7 +19,6 @@ data class CharacterResponse(
         @Json(name = "pages") val pages: Int,
         @Json(name = "prev") val prev: Int?
     ) : Parcelable
-
     @Parcelize
     @JsonClass(generateAdapter = true)
     data class CharacterResult(

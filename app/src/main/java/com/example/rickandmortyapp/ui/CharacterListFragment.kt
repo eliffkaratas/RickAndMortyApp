@@ -76,7 +76,7 @@ class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacter
                             viewPagerCharacters.getChildAt(0).overScrollMode =
                                 RecyclerView.OVER_SCROLL_NEVER
                         }
-                        comPosPage()
+                        comPageTransformer()
                     }
                     dataBinding.lottieLoading.hide()
                 }
@@ -89,14 +89,14 @@ class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacter
 
     override fun getLayoutID(): Int = R.layout.fragment_character_list
 
-    fun comPosPage() {
-        val comPosPageTarn = CompositePageTransformer()
-        comPosPageTarn.addTransformer(MarginPageTransformer(40))
-        comPosPageTarn.addTransformer { page, position ->
+    private fun comPageTransformer() {
+        val comPosPageTrans = CompositePageTransformer()
+        comPosPageTrans.addTransformer(MarginPageTransformer(40))
+        comPosPageTrans.addTransformer { page, position ->
             val r: Float = 1 - abs(position)
             page.scaleY = 0.85f + r * 0.15f
         }
-        dataBinding.viewPagerCharacters.setPageTransformer(comPosPageTarn)
+        dataBinding.viewPagerCharacters.setPageTransformer(comPosPageTrans)
         pagerHandler = Handler()
         pagerRun = Runnable {
             dataBinding.viewPagerCharacters.currentItem =

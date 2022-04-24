@@ -2,7 +2,7 @@ package com.example.rickandmortyapp
 
 import android.app.Application
 import android.os.Looper
-import android.widget.Toast
+import com.example.rickandmortyapp.util.showToast
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -14,12 +14,11 @@ class RickAndMortyApp : Application() {
     }
 
     private fun handleUncaughtException() {
-        Thread.setDefaultUncaughtExceptionHandler { t, e ->
+        Thread.setDefaultUncaughtExceptionHandler { _, _ ->
             object : Thread() {
                 override fun run() {
                     Looper.prepare()
-                    Toast.makeText(applicationContext, R.string.unknown_error, Toast.LENGTH_SHORT)
-                        .show()
+                    showToast(getString(R.string.unknown_error))
                     Looper.loop()
                 }
             }.start()
