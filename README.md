@@ -9,6 +9,7 @@ Main screen contains these informations about characters:
 - Name
 - Image
 
+![My Image](desktop/main_screen.jpg)
 
 The second screen is the screen with the details of the characters. This screen contains more information about the characters.
 Second screen open as Bottom Sheet Dialog.
