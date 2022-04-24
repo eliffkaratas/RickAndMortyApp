@@ -5,5 +5,7 @@ The second screen is the screen with the details of the characters. This screen 
 The application is developed using the MVVM structure in Kotlin.
 
 Used for DI: Hilt - Dagger
+
 Used for JSON: Moshi
+
 Used for network: Retrofit
