@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.rickandmortyapp.R
 import com.example.rickandmortyapp.base.BaseFullBottomSheetFragment
 import com.example.rickandmortyapp.databinding.FragmentCharacterDetailBinding
+import com.example.rickandmortyapp.util.hide
 
 class CharacterDetailFragment :
     BaseFullBottomSheetFragment<CharacterViewModel, FragmentCharacterDetailBinding>() {
@@ -33,6 +34,9 @@ class CharacterDetailFragment :
             textViewStatus.text = args.characterStatus
             textViewLocationName.text = args.characterLocationName
             textViewLocationUrl.text = args.characterLocationUrl
+            textViewSpecies.text = args.characterSpecies
+            textViewGender.text = args.characterGender
+            textViewCreated.text = args.characterCreated
         }
     }
 

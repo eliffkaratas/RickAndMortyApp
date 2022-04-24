@@ -39,5 +39,17 @@
             android:name="characterLocationUrl"
             app:argType="string"
             app:nullable="true" />
+        <argument
+            android:name="characterSpecies"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="characterGender"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="characterCreated"
+            app:argType="string"
+            app:nullable="true" />
     </dialog>
 </navigation>

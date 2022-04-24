@@ -52,6 +52,7 @@ class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacter
                     it.data?.let {
                         pagerAdapter = PagerAdapter(
                             dataBinding.viewPagerCharacters,
+                            requireContext(),
                             it.results
                         ) { character ->
                             characterClicked(
@@ -59,7 +60,10 @@ class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacter
                                 character.name!!,
                                 character.status!!,
                                 character.characterLocation?.name!!,
-                                character.characterLocation.url!!
+                                character.characterLocation.url!!,
+                                character.species!!,
+                                character.gender!!,
+                                character.created!!
                             )
                         }
                         dataBinding.apply {
@@ -105,7 +109,10 @@ class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacter
         characterName: String,
         characterStatus: String,
         characterLocationName: String,
-        characterLocationUrl: String
+        characterLocationUrl: String,
+        characterSpecies: String,
+        characterGender: String,
+        characterCreated: String
     ) =
         findNavController().navigate(
             CharacterListFragmentDirections.actionNavCharacterListToCharacterDetailFragment(
@@ -113,7 +120,10 @@ class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacter
                 characterName,
                 characterStatus,
                 characterLocationName,
-                characterLocationUrl
+                characterLocationUrl,
+                characterSpecies,
+                characterGender,
+                characterCreated
             )
         )
 }

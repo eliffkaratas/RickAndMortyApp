@@ -31,9 +31,9 @@ data class CharacterResponse(
         @Json(name = "location") val characterLocation: CharacterLocation?,
         @Json(name = "name") val name: String?,
         @Json(name = "origin") val characterOrigin: CharacterOrigin?,
-        @Json(name = "species") val species: String?,
-        @Json(name = "status") val status: String?,
-        @Json(name = "type") val type: String?,
+        @Json(name = "species") var species: String?,
+        @Json(name = "status") var status: String?,
+        @Json(name = "type") var type: String?,
         @Json(name = "url") val url: String?
     ) : Parcelable {
         @Parcelize

@@ -13,11 +13,17 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
 
+    <!--main page-->
     <string name="close">close</string>
     <string name="info">Tap on a character to see character details</string>
     <string name="rick_and_morty">Rick and Morty</string>
+
+    <!--detail page-->
     <string name="name">Name</string>
     <string name="status">Status</string>
     <string name="location_name">Location Name</string>
     <string name="location_url">Location Url</string>
+    <string name="species">Species</string>
+    <string name="created">Created</string>
+    <string name="gender">Gender</string>
 </resources>
