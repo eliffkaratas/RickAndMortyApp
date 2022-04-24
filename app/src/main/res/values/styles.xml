@@ -11,7 +11,9 @@
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="autoSizeTextType">uniform</item>
-        <item name="android:textSize">@dimen/sp_50</item>
+        <item name="autoSizeMaxTextSize">@dimen/sp_50</item>
+        <item name="autoSizeMinTextSize">@dimen/sp_24</item>
+        <item name="android:textSize">@dimen/sp_40</item>
         <item name="fontFamily">@font/get_schwifty</item>
     </style>
 
