@@ -18,7 +18,6 @@ import com.example.rickandmortyapp.network.repository.EventObserver
 import com.example.rickandmortyapp.util.hide
 import com.example.rickandmortyapp.util.show
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.Math.abs
 
 @AndroidEntryPoint
 class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacterListBinding>() {
@@ -43,13 +42,13 @@ class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacter
     }
 
     override fun observeLiveData() {
-        viewModel?.characterResponse(1)?.observe(viewLifecycleOwner, EventObserver {
+        viewModel?.characterResponse(1)?.observe(viewLifecycleOwner, EventObserver { it ->
             when (it.status) {
                 Status.LOADING -> {
                     dataBinding.lottieLoading.show()
                 }
                 Status.SUCCESS -> {
-                    it.data?.let {
+                    it.data?.let { it ->
                         pagerAdapter = PagerAdapter(
                             dataBinding.viewPagerCharacters,
                             requireContext(),
@@ -93,7 +92,7 @@ class CharacterListFragment : BaseFragment<CharacterViewModel, FragmentCharacter
         val comPosPageTrans = CompositePageTransformer()
         comPosPageTrans.addTransformer(MarginPageTransformer(40))
         comPosPageTrans.addTransformer { page, position ->
-            val r: Float = 1 - abs(position)
+            val r: Float = 1 - kotlin.math.abs(position)
             page.scaleY = 0.85f + r * 0.15f
         }
         dataBinding.viewPagerCharacters.setPageTransformer(comPosPageTrans)

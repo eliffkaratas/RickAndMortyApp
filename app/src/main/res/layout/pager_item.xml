@@ -26,17 +26,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/image_view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:scaleType="fitXY"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_view_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:shape="ring"
+                app:cardCornerRadius="@dimen/dp_360"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:strokeColor="@color/white"
-                app:strokeWidth="5dp" />
+                app:strokeWidth="@dimen/dp_5">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view_pager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_300"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside" />
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/text_view_id"
@@ -46,10 +57,10 @@
                 android:gravity="center"
                 android:text="@{String.valueOf(character.id)}"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp_20"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_view_pager" />
+                app:layout_constraintTop_toBottomOf="@id/card_view_image" />
 
             <TextView
                 android:id="@+id/text_view_name"
@@ -59,7 +70,7 @@
                 android:gravity="center"
                 android:text="@{String.valueOf(character.name)}"
                 android:textColor="@color/win8_teal"
-                android:textSize="32sp"
+                android:textSize="@dimen/sp_32"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view_id" />
