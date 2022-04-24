@@ -9,7 +9,7 @@ Main screen contains these informations about characters:
 - Name
 - Image
 
-![main_screen](https://user-images.githubusercontent.com/74800052/164953393-ec05a01c-0a83-4742-b51b-a96af470f72d.png width="200" height="400")
+<img src="https://user-images.githubusercontent.com/74800052/164953393-ec05a01c-0a83-4742-b51b-a96af470f72d.png" width="200" height="400"/>
 
 The second screen is the screen with the details of the characters. This screen contains more information about the characters.
 Second screen open as Bottom Sheet Dialog.
