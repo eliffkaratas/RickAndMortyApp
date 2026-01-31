@@ -2,8 +2,8 @@ package com.example.rickandmortyapp.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import com.example.rickandmortyapp.model.CharacterResponse
 import com.example.rickandmortyapp.network.Resource
 import com.example.rickandmortyapp.network.repository.CharacterRepository
@@ -12,16 +12,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CharacterViewModel @Inject constructor(private val repository: CharacterRepository) :
-    ViewModel() {
+class CharacterViewModel @Inject constructor(
+    private val repository: CharacterRepository
+) : ViewModel() {
 
-    private var listCharacters = MutableLiveData<Event<Unit>>()
+    private val listCharacters = MutableLiveData<Event<Unit>>()
 
     fun characterResponse(page: Int): LiveData<Event<Resource<CharacterResponse>>> =
-        Transformations
-            .switchMap(listCharacters) {
-                repository.getCharacters(page)
-            }
+        listCharacters.switchMap {
+            repository.getCharacters(page)
+        }
 
     fun getCharacters() {
         listCharacters.value = Event(Unit)
