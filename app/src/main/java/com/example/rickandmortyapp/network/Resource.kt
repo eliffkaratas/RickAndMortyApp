@@ -3,7 +3,7 @@ package com.example.rickandmortyapp.network
 data class Resource<out T>(
     val status: Status,
     val data: T? = null,
-    val message: String?,
+    val message: String? = null,
     val errorCode: Int? = null
 ) {
     companion object {

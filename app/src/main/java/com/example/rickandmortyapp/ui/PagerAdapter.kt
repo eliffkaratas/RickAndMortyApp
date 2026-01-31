@@ -1,11 +1,9 @@
 package com.example.rickandmortyapp.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.rickandmortyapp.R
@@ -13,72 +11,67 @@ import com.example.rickandmortyapp.databinding.PagerItemBinding
 import com.example.rickandmortyapp.model.CharacterResponse
 
 class PagerAdapter(
-    private val viewPager: ViewPager2,
-    private val context: Context,
-    private val characterList: MutableList<CharacterResponse.CharacterResult>,
-    private val characterClicked: (character: CharacterResponse.CharacterResult) -> Unit
+    private val characterList: List<CharacterResponse.CharacterResult>,
+    private val characterClicked: (CharacterResponse.CharacterResult) -> Unit
 ) : RecyclerView.Adapter<CharacterPagerViewHolder>() {
 
-    override fun getItemCount(): Int = characterList.size
+    override fun getItemCount(): Int {
+        return if (characterList.isEmpty()) 0 else Int.MAX_VALUE
+    }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): CharacterPagerViewHolder {
-        val itemBinding =
-            PagerItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent, false
-            )
-        return CharacterPagerViewHolder(itemBinding, context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterPagerViewHolder {
+        val itemBinding = PagerItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return CharacterPagerViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: CharacterPagerViewHolder, position: Int) {
-        val character = characterList[position]
-        if (position == characterList.size - 2) {
-            viewPager.post(run)
-        }
+        if (characterList.isEmpty()) return
+
+        val realIndex = position % characterList.size
+        val character = characterList[realIndex]
+
         holder.bind(character)
         holder.itemBinding.cardViewCharacter.setOnClickListener {
-            characterClicked.invoke(character)
+            characterClicked(character)
         }
     }
 
-    private val run = Runnable {
-        characterList.addAll(characterList)
-        notifyDataSetChanged()
+    fun startPosition(): Int {
+        if (characterList.isEmpty()) return 0
+        val middle = Int.MAX_VALUE / 2
+        return middle - (middle % characterList.size)
     }
 }
 
 class CharacterPagerViewHolder(
-    val itemBinding: PagerItemBinding,
-    val context: Context
+    val itemBinding: PagerItemBinding
 ) : RecyclerView.ViewHolder(itemBinding.root) {
+
     fun bind(character: CharacterResponse.CharacterResult) {
         itemBinding.character = character
-        if (character.id != null) {
-            if (character.id % 2 == 0) {
-                itemBinding.textViewName.setTextColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.win8_pink
-                    )
-                )
-            }
+
+        val id = character.id
+        val colorRes = when {
+            id != null && id % 3 == 0 -> R.color.holo_orange_light
+            id != null && id % 2 == 0 -> R.color.win8_pink
+            else -> null
         }
-        if (character.id != null) {
-            if (character.id % 3 == 0) {
-                itemBinding.textViewName.setTextColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.holo_orange_light
-                    )
-                )
-            }
+
+        colorRes?.let {
+            itemBinding.textViewName.setTextColor(
+                ContextCompat.getColor(itemView.context, it)
+            )
         }
-        Glide.with(itemView.context).load(character.image).apply(
-            RequestOptions.circleCropTransform()
-        ).into(itemBinding.imageViewPager)
+
+        Glide.with(itemView)
+            .load(character.image)
+            .apply(RequestOptions.circleCropTransform())
+            .into(itemBinding.imageViewPager)
+
         itemBinding.executePendingBindings()
     }
 }

@@ -1,110 +1,85 @@
 package com.example.rickandmortyapp.di
 
 import android.content.Context
+import com.example.rickandmortyapp.BuildConfig
 import com.example.rickandmortyapp.constants.Constants.BASE_URL
-import com.example.rickandmortyapp.constants.Constants.CHARACTER_SERVICE
 import com.example.rickandmortyapp.network.service.CharacterService
-import com.example.rickandmortyapp.util.LiveDataCallAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.*
+import okhttp3.Cache
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
-/**
- * Module for all remote api endpoints
- */
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+private annotation class HeaderInterceptor
+
 @InstallIn(SingletonComponent::class)
 @Module
-class NetworkModule {
+object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpCache(context: Context): Cache =
-        Cache(context.cacheDir, (10 * 1024 * 1024).toLong())
+    fun provideOkHttpCache(@ApplicationContext context: Context): Cache =
+        Cache(context.cacheDir, 10L * 1024 * 1024)
 
     @Singleton
     @Provides
-    @Named("header")
-    fun provideHeaderInterceptor(): Interceptor =
-        Interceptor { chain ->
-            val request = chain.request()
-
-            val newUrl = request.url.newBuilder()
-                .build()
-            val newRequest = request.newBuilder()
-                .url(newUrl)
-                .method(request.method, request.body)
-                .build()
-            chain.proceed(newRequest)
-        }
+    @HeaderInterceptor
+    fun provideHeaderInterceptor(): Interceptor = Interceptor { chain ->
+        val request = chain.request().newBuilder()
+            .header("Accept", "application/json")
+            .build()
+        chain.proceed(request)
+    }
 
     @Singleton
     @Provides
     fun provideOkHttpClient(
-        interceptor: Interceptor,
-        @Named("header") header: Interceptor
-    ): OkHttpClient =
-        OkHttpClient.Builder()
-            .connectTimeout(2L, TimeUnit.SECONDS)
-            .readTimeout(2L, TimeUnit.SECONDS)
-            .writeTimeout(2L, TimeUnit.SECONDS)
-            .addInterceptor(interceptor)
-
-            .apply {
-                val loggingInterceptor = HttpLoggingInterceptor()
-                loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-                addInterceptor(loggingInterceptor)
-            }
-            .build()
-
-
-    @Singleton
-    @Provides
-    @Named(CHARACTER_SERVICE)
-    fun provideCharacterInterceptor(): Interceptor {
-        return Interceptor { chain ->
-            synchronized(this) {
-                val request = chain.request()
-                    .newBuilder()
-                    .build()
-
-                val response = chain.proceed(request)
-                response
-            }
-        }
-    }
-
-    @Singleton
-    @Provides
-    @Named(CHARACTER_SERVICE)
-    fun provideUserHttpClient(
-        @Named(CHARACTER_SERVICE) interceptor: Interceptor,
-        @Named("header") header: Interceptor,
+        cache: Cache,
+        @HeaderInterceptor headerInterceptor: Interceptor
     ): OkHttpClient {
-        return provideOkHttpClient(interceptor, header)
+        val builder = OkHttpClient.Builder()
+            .cache(cache)
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(15, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
+            .addInterceptor(headerInterceptor)
+
+        if (BuildConfig.DEBUG) {
+            val logging = HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+            builder.addNetworkInterceptor(logging)
+        }
+
+        return builder.build()
     }
 
     @Singleton
     @Provides
-    fun provideCharacterService(
-        @Named(CHARACTER_SERVICE)
+    fun provideRetrofit(
         okHttpClient: OkHttpClient,
-        moshi: Moshi,
-    ): CharacterService {
-        return Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+        moshi: Moshi
+    ): Retrofit =
+        Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .client(okHttpClient)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
-            .create(CharacterService::class.java)
-    }
+
+    @Singleton
+    @Provides
+    fun provideCharacterService(retrofit: Retrofit): CharacterService =
+        retrofit.create(CharacterService::class.java)
 }

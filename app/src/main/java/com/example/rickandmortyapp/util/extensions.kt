@@ -1,13 +1,25 @@
 package com.example.rickandmortyapp.util
 
-import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.view.View
-import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 
-fun Application.showToast(messageToShow: String) {
-    Toast.makeText(applicationContext, messageToShow, Toast.LENGTH_LONG).show()
+fun View.showSnackbar(
+    message: String,
+    duration: Int = Snackbar.LENGTH_LONG,
+    actionText: String? = null,
+    action: (() -> Unit)? = null
+) {
+    val snackbar = Snackbar.make(this, message, duration)
+
+    if (actionText != null && action != null) {
+        snackbar.setAction(actionText) { action() }
+    }
+
+    snackbar.show()
 }
-
 fun View.show(): View {
     if (visibility != View.VISIBLE) {
         visibility = View.VISIBLE
@@ -20,4 +32,16 @@ fun View.hide(): View {
         visibility = View.GONE
     }
     return this
+}
+
+fun Context.hasInternetConnection(): Boolean {
+    val connectivityManager =
+        getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    val network = connectivityManager.activeNetwork ?: return false
+    val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+    return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
 }

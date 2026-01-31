@@ -9,33 +9,43 @@ import com.example.rickandmortyapp.base.BaseFullBottomSheetFragment
 import com.example.rickandmortyapp.databinding.FragmentCharacterDetailBinding
 
 class CharacterDetailFragment :
-    BaseFullBottomSheetFragment<CharacterViewModel, FragmentCharacterDetailBinding>() {
-    override var viewModel: CharacterViewModel? = null
+    BaseFullBottomSheetFragment<Nothing, FragmentCharacterDetailBinding>() {
+
+    override var viewModel: Nothing? = null
+
     private val args: CharacterDetailFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataBinding.apply {
-            toolbar.setOnMenuItemClickListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.close -> {
-                        dismiss()
-                        true
-                    }
-                    else -> false
+
+        dataBinding.toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.close -> {
+                    dismiss()
+                    true
                 }
+                else -> false
             }
         }
-        dataBinding.apply {
-            Glide.with(requireView().context).load(args.characterImage)
-                .into(imageViewCharacterDetail)
-            textViewName.text = args.characterName
-            textViewStatus.text = args.characterStatus
-            textViewLocationName.text = args.characterLocationName
-            textViewLocationUrl.text = args.characterLocationUrl
-            textViewSpecies.text = args.characterSpecies
-            textViewGender.text = args.characterGender
-            textViewCreated.text = args.characterCreated
+
+        bindUi()
+    }
+
+    private fun bindUi() = with(dataBinding) {
+        Glide.with(this@CharacterDetailFragment)
+            .load(args.characterImage)
+            .into(imageViewCharacterDetail)
+
+        textViewName.text = args.characterName
+        textViewStatus.text = args.characterStatus
+        textViewLocationName.text = args.characterLocationName
+        textViewSpecies.text = args.characterSpecies
+        textViewGender.text = args.characterGender
+        textViewCreated.text = args.characterCreated
+        args.characterLocationUrl?.let {
+            textViewLocationUrl.text = it
+        } ?: run {
+            textViewLocationUrl.visibility = View.GONE
         }
     }
 
