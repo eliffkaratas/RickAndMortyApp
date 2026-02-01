@@ -1,4 +1,4 @@
-package com.example.rickandmortyapp.ui
+package com.example.rickandmortyapp.ui.characterdetail
 
 import android.os.Bundle
 import android.view.View
@@ -33,16 +33,16 @@ class CharacterDetailFragment :
 
     private fun bindUi() = with(dataBinding) {
         Glide.with(this@CharacterDetailFragment)
-            .load(args.characterImage)
+            .load(args.detailArgs.characterImage)
             .into(imageViewCharacterDetail)
 
-        textViewName.text = args.characterName
-        textViewStatus.text = args.characterStatus
-        textViewLocationName.text = args.characterLocationName
-        textViewSpecies.text = args.characterSpecies
-        textViewGender.text = args.characterGender
-        textViewCreated.text = args.characterCreated
-        args.characterLocationUrl?.let {
+        textViewName.text = args.detailArgs.characterName
+        textViewStatus.text = args.detailArgs.characterStatus
+        textViewLocationName.text = args.detailArgs.characterLocationName
+        textViewSpecies.text = args.detailArgs.characterSpecies
+        textViewGender.text = args.detailArgs.characterGender
+        textViewCreated.text = args.detailArgs.characterCreated
+        args.detailArgs.characterLocationUrl?.let {
             textViewLocationUrl.text = it
         } ?: run {
             textViewLocationUrl.visibility = View.GONE

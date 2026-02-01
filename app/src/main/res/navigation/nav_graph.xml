@@ -7,49 +7,20 @@
 
     <fragment
         android:id="@+id/nav_character"
-        android:name="com.example.rickandmortyapp.ui.CharacterListFragment"
-        android:label="CharacterListFragment"
-        tools:layout="@layout/fragment_character_list">
+        android:name="com.example.rickandmortyapp.ui.characterlist.CharacterListFragment"
+        android:label="CharacterListFragment">
         <action
             android:id="@+id/action_nav_character_list_to_characterDetailFragment"
             app:destination="@id/characterDetailFragment" />
     </fragment>
     <dialog
         android:id="@+id/characterDetailFragment"
-        android:name="com.example.rickandmortyapp.ui.CharacterDetailFragment"
+        android:name="com.example.rickandmortyapp.ui.characterdetail.CharacterDetailFragment"
         android:label="CharacterDetailFragment"
         tools:layout="@layout/fragment_character_detail">
         <argument
-            android:name="characterImage"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="characterName"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="characterStatus"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="characterLocationName"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="characterLocationUrl"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="characterSpecies"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="characterGender"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="characterCreated"
-            app:argType="string"
-            app:nullable="true" />
+            android:name="detailArgs"
+            app:argType="com.example.rickandmortyapp.ui.model.CharacterArgs"
+            app:nullable="false" />
     </dialog>
 </navigation>

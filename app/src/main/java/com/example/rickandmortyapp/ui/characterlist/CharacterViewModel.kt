@@ -1,4 +1,4 @@
-package com.example.rickandmortyapp.ui
+package com.example.rickandmortyapp.ui.characterlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
