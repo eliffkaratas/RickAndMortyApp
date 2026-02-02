@@ -10,6 +10,8 @@ Main screen contains these informations about characters:
 - Id
 - Name
 - Image
+- Status
+- Species
 
 <img width="200" height="400" alt="Screenshot_20260202_011944" src="https://github.com/user-attachments/assets/988af1dd-e5af-4eef-b11c-99b9b8bebd6d" />
 
@@ -28,7 +30,7 @@ Detail screen contains these informations about characters:
 
 API link : https://rickandmortyapi.com/
 
-The application is developed using the MVVM structure in Kotlin.
+The application is developed using the MVVM structure in Kotlin/Compose.
 
 Used for DI: Hilt - Dagger
 
